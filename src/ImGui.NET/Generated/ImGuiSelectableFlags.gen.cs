@@ -8,6 +8,6 @@ namespace ImGuiNET
         SpanAllColumns = 2,
         AllowDoubleClick = 4,
         Disabled = 8,
-        AllowOverlap = 16,
+        AllowItemOverlap = 16,
     }
 }

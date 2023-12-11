@@ -46,11 +46,6 @@ namespace ImGuiNET
         public ref ImDrawCmdHeader _CmdHeader => ref Unsafe.AsRef<ImDrawCmdHeader>(&NativePtr->_CmdHeader);
         public ref ImDrawListSplitter _Splitter => ref Unsafe.AsRef<ImDrawListSplitter>(&NativePtr->_Splitter);
         public ref float _FringeScale => ref Unsafe.AsRef<float>(&NativePtr->_FringeScale);
-        public int _CalcCircleAutoSegmentCount(float radius)
-        {
-            int ret = ImGuiNative.ImDrawList__CalcCircleAutoSegmentCount((ImDrawList*)(NativePtr), radius);
-            return ret;
-        }
         public void _ClearFreeMemory()
         {
             ImGuiNative.ImDrawList__ClearFreeMemory((ImDrawList*)(NativePtr));
@@ -67,14 +62,6 @@ namespace ImGuiNET
         {
             ImGuiNative.ImDrawList__OnChangedVtxOffset((ImDrawList*)(NativePtr));
         }
-        public void _PathArcToFastEx(Vector2 center, float radius, int a_min_sample, int a_max_sample, int a_step)
-        {
-            ImGuiNative.ImDrawList__PathArcToFastEx((ImDrawList*)(NativePtr), center, radius, a_min_sample, a_max_sample, a_step);
-        }
-        public void _PathArcToN(Vector2 center, float radius, float a_min, float a_max, int num_segments)
-        {
-            ImGuiNative.ImDrawList__PathArcToN((ImDrawList*)(NativePtr), center, radius, a_min, a_max, num_segments);
-        }
         public void _PopUnusedDrawCmd()
         {
             ImGuiNative.ImDrawList__PopUnusedDrawCmd((ImDrawList*)(NativePtr));
@@ -82,10 +69,6 @@ namespace ImGuiNET
         public void _ResetForNewFrame()
         {
             ImGuiNative.ImDrawList__ResetForNewFrame((ImDrawList*)(NativePtr));
-        }
-        public void _TryMergeDrawCmds()
-        {
-            ImGuiNative.ImDrawList__TryMergeDrawCmds((ImDrawList*)(NativePtr));
         }
         public void AddBezierCubic(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, uint col, float thickness)
         {
@@ -144,43 +127,6 @@ namespace ImGuiNET
         public void AddDrawCmd()
         {
             ImGuiNative.ImDrawList_AddDrawCmd((ImDrawList*)(NativePtr));
-        }
-        public void AddEllipse(Vector2 center, float radius_x, float radius_y, uint col)
-        {
-            float rot = 0.0f;
-            int num_segments = 0;
-            float thickness = 1.0f;
-            ImGuiNative.ImDrawList_AddEllipse((ImDrawList*)(NativePtr), center, radius_x, radius_y, col, rot, num_segments, thickness);
-        }
-        public void AddEllipse(Vector2 center, float radius_x, float radius_y, uint col, float rot)
-        {
-            int num_segments = 0;
-            float thickness = 1.0f;
-            ImGuiNative.ImDrawList_AddEllipse((ImDrawList*)(NativePtr), center, radius_x, radius_y, col, rot, num_segments, thickness);
-        }
-        public void AddEllipse(Vector2 center, float radius_x, float radius_y, uint col, float rot, int num_segments)
-        {
-            float thickness = 1.0f;
-            ImGuiNative.ImDrawList_AddEllipse((ImDrawList*)(NativePtr), center, radius_x, radius_y, col, rot, num_segments, thickness);
-        }
-        public void AddEllipse(Vector2 center, float radius_x, float radius_y, uint col, float rot, int num_segments, float thickness)
-        {
-            ImGuiNative.ImDrawList_AddEllipse((ImDrawList*)(NativePtr), center, radius_x, radius_y, col, rot, num_segments, thickness);
-        }
-        public void AddEllipseFilled(Vector2 center, float radius_x, float radius_y, uint col)
-        {
-            float rot = 0.0f;
-            int num_segments = 0;
-            ImGuiNative.ImDrawList_AddEllipseFilled((ImDrawList*)(NativePtr), center, radius_x, radius_y, col, rot, num_segments);
-        }
-        public void AddEllipseFilled(Vector2 center, float radius_x, float radius_y, uint col, float rot)
-        {
-            int num_segments = 0;
-            ImGuiNative.ImDrawList_AddEllipseFilled((ImDrawList*)(NativePtr), center, radius_x, radius_y, col, rot, num_segments);
-        }
-        public void AddEllipseFilled(Vector2 center, float radius_x, float radius_y, uint col, float rot, int num_segments)
-        {
-            ImGuiNative.ImDrawList_AddEllipseFilled((ImDrawList*)(NativePtr), center, radius_x, radius_y, col, rot, num_segments);
         }
         public void AddImage(IntPtr user_texture_id, Vector2 p_min, Vector2 p_max)
         {
@@ -245,12 +191,12 @@ namespace ImGuiNET
         }
         public void AddImageRounded(IntPtr user_texture_id, Vector2 p_min, Vector2 p_max, Vector2 uv_min, Vector2 uv_max, uint col, float rounding)
         {
-            ImDrawFlags flags = (ImDrawFlags)0;
-            ImGuiNative.ImDrawList_AddImageRounded((ImDrawList*)(NativePtr), user_texture_id, p_min, p_max, uv_min, uv_max, col, rounding, flags);
+            ImDrawCornerFlags rounding_corners = ImDrawCornerFlags.All;
+            ImGuiNative.ImDrawList_AddImageRounded((ImDrawList*)(NativePtr), user_texture_id, p_min, p_max, uv_min, uv_max, col, rounding, rounding_corners);
         }
-        public void AddImageRounded(IntPtr user_texture_id, Vector2 p_min, Vector2 p_max, Vector2 uv_min, Vector2 uv_max, uint col, float rounding, ImDrawFlags flags)
+        public void AddImageRounded(IntPtr user_texture_id, Vector2 p_min, Vector2 p_max, Vector2 uv_min, Vector2 uv_max, uint col, float rounding, ImDrawCornerFlags rounding_corners)
         {
-            ImGuiNative.ImDrawList_AddImageRounded((ImDrawList*)(NativePtr), user_texture_id, p_min, p_max, uv_min, uv_max, col, rounding, flags);
+            ImGuiNative.ImDrawList_AddImageRounded((ImDrawList*)(NativePtr), user_texture_id, p_min, p_max, uv_min, uv_max, col, rounding, rounding_corners);
         }
         public void AddLine(Vector2 p1, Vector2 p2, uint col)
         {
@@ -274,11 +220,12 @@ namespace ImGuiNET
         {
             ImGuiNative.ImDrawList_AddNgonFilled((ImDrawList*)(NativePtr), center, radius, col, num_segments);
         }
-        public void AddPolyline(ref Vector2 points, int num_points, uint col, ImDrawFlags flags, float thickness)
+        public void AddPolyline(ref Vector2 points, int num_points, uint col, bool closed, float thickness)
         {
+            byte native_closed = closed ? (byte)1 : (byte)0;
             fixed (Vector2* native_points = &points)
             {
-                ImGuiNative.ImDrawList_AddPolyline((ImDrawList*)(NativePtr), native_points, num_points, col, flags, thickness);
+                ImGuiNative.ImDrawList_AddPolyline((ImDrawList*)(NativePtr), native_points, num_points, col, native_closed, thickness);
             }
         }
         public void AddQuad(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, uint col)
@@ -297,39 +244,39 @@ namespace ImGuiNET
         public void AddRect(Vector2 p_min, Vector2 p_max, uint col)
         {
             float rounding = 0.0f;
-            ImDrawFlags flags = (ImDrawFlags)0;
+            ImDrawCornerFlags rounding_corners = ImDrawCornerFlags.All;
             float thickness = 1.0f;
-            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, flags, thickness);
+            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, rounding_corners, thickness);
         }
         public void AddRect(Vector2 p_min, Vector2 p_max, uint col, float rounding)
         {
-            ImDrawFlags flags = (ImDrawFlags)0;
+            ImDrawCornerFlags rounding_corners = ImDrawCornerFlags.All;
             float thickness = 1.0f;
-            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, flags, thickness);
+            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, rounding_corners, thickness);
         }
-        public void AddRect(Vector2 p_min, Vector2 p_max, uint col, float rounding, ImDrawFlags flags)
+        public void AddRect(Vector2 p_min, Vector2 p_max, uint col, float rounding, ImDrawCornerFlags rounding_corners)
         {
             float thickness = 1.0f;
-            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, flags, thickness);
+            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, rounding_corners, thickness);
         }
-        public void AddRect(Vector2 p_min, Vector2 p_max, uint col, float rounding, ImDrawFlags flags, float thickness)
+        public void AddRect(Vector2 p_min, Vector2 p_max, uint col, float rounding, ImDrawCornerFlags rounding_corners, float thickness)
         {
-            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, flags, thickness);
+            ImGuiNative.ImDrawList_AddRect((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, rounding_corners, thickness);
         }
         public void AddRectFilled(Vector2 p_min, Vector2 p_max, uint col)
         {
             float rounding = 0.0f;
-            ImDrawFlags flags = (ImDrawFlags)0;
-            ImGuiNative.ImDrawList_AddRectFilled((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, flags);
+            ImDrawCornerFlags rounding_corners = ImDrawCornerFlags.All;
+            ImGuiNative.ImDrawList_AddRectFilled((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, rounding_corners);
         }
         public void AddRectFilled(Vector2 p_min, Vector2 p_max, uint col, float rounding)
         {
-            ImDrawFlags flags = (ImDrawFlags)0;
-            ImGuiNative.ImDrawList_AddRectFilled((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, flags);
+            ImDrawCornerFlags rounding_corners = ImDrawCornerFlags.All;
+            ImGuiNative.ImDrawList_AddRectFilled((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, rounding_corners);
         }
-        public void AddRectFilled(Vector2 p_min, Vector2 p_max, uint col, float rounding, ImDrawFlags flags)
+        public void AddRectFilled(Vector2 p_min, Vector2 p_max, uint col, float rounding, ImDrawCornerFlags rounding_corners)
         {
-            ImGuiNative.ImDrawList_AddRectFilled((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, flags);
+            ImGuiNative.ImDrawList_AddRectFilled((ImDrawList*)(NativePtr), p_min, p_max, col, rounding, rounding_corners);
         }
         public void AddRectFilledMultiColor(Vector2 p_min, Vector2 p_max, uint col_upr_left, uint col_upr_right, uint col_bot_right, uint col_bot_left)
         {
@@ -585,7 +532,7 @@ namespace ImGuiNET
         }
         public void PathArcTo(Vector2 center, float radius, float a_min, float a_max)
         {
-            int num_segments = 0;
+            int num_segments = 10;
             ImGuiNative.ImDrawList_PathArcTo((ImDrawList*)(NativePtr), center, radius, a_min, a_max, num_segments);
         }
         public void PathArcTo(Vector2 center, float radius, float a_min, float a_max, int num_segments)
@@ -618,15 +565,6 @@ namespace ImGuiNET
         {
             ImGuiNative.ImDrawList_PathClear((ImDrawList*)(NativePtr));
         }
-        public void PathEllipticalArcTo(Vector2 center, float radius_x, float radius_y, float rot, float a_min, float a_max)
-        {
-            int num_segments = 0;
-            ImGuiNative.ImDrawList_PathEllipticalArcTo((ImDrawList*)(NativePtr), center, radius_x, radius_y, rot, a_min, a_max, num_segments);
-        }
-        public void PathEllipticalArcTo(Vector2 center, float radius_x, float radius_y, float rot, float a_min, float a_max, int num_segments)
-        {
-            ImGuiNative.ImDrawList_PathEllipticalArcTo((ImDrawList*)(NativePtr), center, radius_x, radius_y, rot, a_min, a_max, num_segments);
-        }
         public void PathFillConvex(uint col)
         {
             ImGuiNative.ImDrawList_PathFillConvex((ImDrawList*)(NativePtr), col);
@@ -642,32 +580,28 @@ namespace ImGuiNET
         public void PathRect(Vector2 rect_min, Vector2 rect_max)
         {
             float rounding = 0.0f;
-            ImDrawFlags flags = (ImDrawFlags)0;
-            ImGuiNative.ImDrawList_PathRect((ImDrawList*)(NativePtr), rect_min, rect_max, rounding, flags);
+            ImDrawCornerFlags rounding_corners = ImDrawCornerFlags.All;
+            ImGuiNative.ImDrawList_PathRect((ImDrawList*)(NativePtr), rect_min, rect_max, rounding, rounding_corners);
         }
         public void PathRect(Vector2 rect_min, Vector2 rect_max, float rounding)
         {
-            ImDrawFlags flags = (ImDrawFlags)0;
-            ImGuiNative.ImDrawList_PathRect((ImDrawList*)(NativePtr), rect_min, rect_max, rounding, flags);
+            ImDrawCornerFlags rounding_corners = ImDrawCornerFlags.All;
+            ImGuiNative.ImDrawList_PathRect((ImDrawList*)(NativePtr), rect_min, rect_max, rounding, rounding_corners);
         }
-        public void PathRect(Vector2 rect_min, Vector2 rect_max, float rounding, ImDrawFlags flags)
+        public void PathRect(Vector2 rect_min, Vector2 rect_max, float rounding, ImDrawCornerFlags rounding_corners)
         {
-            ImGuiNative.ImDrawList_PathRect((ImDrawList*)(NativePtr), rect_min, rect_max, rounding, flags);
+            ImGuiNative.ImDrawList_PathRect((ImDrawList*)(NativePtr), rect_min, rect_max, rounding, rounding_corners);
         }
-        public void PathStroke(uint col)
+        public void PathStroke(uint col, bool closed)
         {
-            ImDrawFlags flags = (ImDrawFlags)0;
+            byte native_closed = closed ? (byte)1 : (byte)0;
             float thickness = 1.0f;
-            ImGuiNative.ImDrawList_PathStroke((ImDrawList*)(NativePtr), col, flags, thickness);
+            ImGuiNative.ImDrawList_PathStroke((ImDrawList*)(NativePtr), col, native_closed, thickness);
         }
-        public void PathStroke(uint col, ImDrawFlags flags)
+        public void PathStroke(uint col, bool closed, float thickness)
         {
-            float thickness = 1.0f;
-            ImGuiNative.ImDrawList_PathStroke((ImDrawList*)(NativePtr), col, flags, thickness);
-        }
-        public void PathStroke(uint col, ImDrawFlags flags, float thickness)
-        {
-            ImGuiNative.ImDrawList_PathStroke((ImDrawList*)(NativePtr), col, flags, thickness);
+            byte native_closed = closed ? (byte)1 : (byte)0;
+            ImGuiNative.ImDrawList_PathStroke((ImDrawList*)(NativePtr), col, native_closed, thickness);
         }
         public void PopClipRect()
         {

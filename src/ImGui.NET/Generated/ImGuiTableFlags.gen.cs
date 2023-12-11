@@ -38,7 +38,6 @@ namespace ImGuiNET
         ScrollY = 33554432,
         SortMulti = 67108864,
         SortTristate = 134217728,
-        HighlightHoveredColumn = 268435456,
         SizingMask = 57344,
     }
 }

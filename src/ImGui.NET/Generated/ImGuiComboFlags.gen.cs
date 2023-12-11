@@ -11,7 +11,6 @@ namespace ImGuiNET
         HeightLargest = 16,
         NoArrowButton = 32,
         NoPreview = 64,
-        WidthFitPreview = 128,
         HeightMask = 30,
     }
 }

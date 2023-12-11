@@ -333,14 +333,14 @@ namespace CodeGenerator
 
                         if (isUdtVariant)
                         {
-                            writer.WriteLine($"[DllImport(\"{dllName}\", CallingConvention = CallingConvention.Cdecl, EntryPoint = \"{exportedName}\")]");
+                            writer.WriteLine($"[LibraryImport(\"{dllName}\", EntryPoint = \"{exportedName}\")]");
 
                         }
                         else
                         {
-                            writer.WriteLine($"[DllImport(\"{dllName}\", CallingConvention = CallingConvention.Cdecl)]");
+                            writer.WriteLine($"[LibraryImport(\"{dllName}\")]");
                         }
-                        writer.WriteLine($"public static extern {ret} {methodName}({parameters});");
+                        writer.WriteLine($"public static partial {ret} {methodName}({parameters});");
                     }
                 }
                 writer.PopBlock();

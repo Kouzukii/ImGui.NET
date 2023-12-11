@@ -18,6 +18,12 @@ namespace ImGuiNET
         FocusNext = 13,
         TweakSlow = 14,
         TweakFast = 15,
-        COUNT = 16,
+        KeyMenu = 16,
+        KeyLeft = 17,
+        KeyRight = 18,
+        KeyUp = 19,
+        KeyDown = 20,
+        COUNT = 21,
+        InternalStart = 16,
     }
 }

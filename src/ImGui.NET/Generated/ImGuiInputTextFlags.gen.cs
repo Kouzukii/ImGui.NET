@@ -17,13 +17,14 @@ namespace ImGuiNET
         AllowTabInput = 1024,
         CtrlEnterForNewLine = 2048,
         NoHorizontalScroll = 4096,
-        AlwaysOverwrite = 8192,
+        AlwaysInsertMode = 8192,
         ReadOnly = 16384,
         Password = 32768,
         NoUndoRedo = 65536,
         CharsScientific = 131072,
         CallbackResize = 262144,
         CallbackEdit = 524288,
-        EscapeClearsAll = 1048576,
+        Multiline = 1048576,
+        NoMarkEdited = 2097152,
     }
 }

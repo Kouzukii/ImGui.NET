@@ -21,9 +21,8 @@ namespace ImGuiNET
         public float GlyphMinAdvanceX;
         public float GlyphMaxAdvanceX;
         public byte MergeMode;
-        public uint FontBuilderFlags;
+        public uint RasterizerFlags;
         public float RasterizerMultiply;
-        public float RasterizerDensity;
         public ushort EllipsisChar;
         public fixed byte Name[40];
         public ImFont* DstFont;
@@ -50,9 +49,8 @@ namespace ImGuiNET
         public ref float GlyphMinAdvanceX => ref Unsafe.AsRef<float>(&NativePtr->GlyphMinAdvanceX);
         public ref float GlyphMaxAdvanceX => ref Unsafe.AsRef<float>(&NativePtr->GlyphMaxAdvanceX);
         public ref bool MergeMode => ref Unsafe.AsRef<bool>(&NativePtr->MergeMode);
-        public ref uint FontBuilderFlags => ref Unsafe.AsRef<uint>(&NativePtr->FontBuilderFlags);
+        public ref uint RasterizerFlags => ref Unsafe.AsRef<uint>(&NativePtr->RasterizerFlags);
         public ref float RasterizerMultiply => ref Unsafe.AsRef<float>(&NativePtr->RasterizerMultiply);
-        public ref float RasterizerDensity => ref Unsafe.AsRef<float>(&NativePtr->RasterizerDensity);
         public ref ushort EllipsisChar => ref Unsafe.AsRef<ushort>(&NativePtr->EllipsisChar);
         public RangeAccessor<byte> Name => new RangeAccessor<byte>(NativePtr->Name, 40);
         public ImFontPtr DstFont => new ImFontPtr(NativePtr->DstFont);
